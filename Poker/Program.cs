@@ -58,7 +58,7 @@ namespace Poker
         public static int[] echange = { 0, 0, 0, 0 };
 
         // Jeu de 5 cartes
-        public  carte[] MonJeu = new carte[5];
+        public static carte[] MonJeu = new carte[5];
 
         //----------
         // FONCTIONS
@@ -68,11 +68,7 @@ namespace Poker
         // Retourne une expression de type "structure carte"
         public static carte tirage()
         {
-            Random rnd = new Random();
-            carte c = default(carte);
-            c.famille = valeurs[rnd.Next(0, 13)];
-            c.valeur = valeurs[rnd.Next(0, 4)];
-            return c;
+            
         }
 
         // Indique si une carte est déjà présente dans le jeu
@@ -80,14 +76,7 @@ namespace Poker
         // Retourne un entier (booléen)
         public static bool carteUnique(carte uneCarte, carte[] unJeu, int numero)
         {
-            if (numero == 0) { return true; }
-            for(int i=0 ; i==numero ; i++)
-            {
-                if (uneCarte.famille == unJeu[i].famille &&
-                    uneCarte.valeur == unJeu[i].valeur) 
-                { return false; }
-            }
-            return true;
+
         }
 
         // Calcule et retourne la COMBINAISON (paire, double-paire... , quinte-flush)
@@ -95,25 +84,7 @@ namespace Poker
         // La valeur retournée est un élement de l'énumération 'combinaison' (=constante)
         public static combinaison chercheCombinaison(carte[] unJeu)
         {
-            //Variables utiles aux tests
-            //Rouge : 1 ; Noire : 0
-            int[] listeRouge = { 0, 0, 0, 0, 0 };
-            for (int i=0; i==5; i++)
-            {
-                if (unJeu[i].famille==3 || unJeu[i].famille == 4) { listeRouge[i] = 1; }
-            }
 
-            //Test les combinaisons
-            //COULEUR
-            if ( listeRouge[0] == listeRouge[1] &&
-                 listeRouge[1] == listeRouge[2] &&
-                 listeRouge[2] == listeRouge[3] &&
-                 listeRouge[3] == listeRouge[4] &&
-                 listeRouge[4] == listeRouge[5])
-            {
-                return combinaison.COULEUR;
-            }
-            return combinaison.RIEN;
         }
 
         // Echange des cartes
@@ -141,15 +112,7 @@ namespace Poker
         // Paramètre : le tableau de 5 cartes à remplir
         private static void tirageDuJeu(carte[] unJeu)
         {
-            for(int i=0; i==5; i++ )
-            {
-                pasUnique:
-                carte laCarte = tirage();
-                bool unique = carteUnique(laCarte, unJeu, i);
-                if (unique == false) { goto pasUnique; }
-            }
-            
-            
+
         }
 
         // Affiche à l'écran une carte {valeur;famille} 
@@ -221,7 +184,7 @@ namespace Poker
             try
             {
                 // Test de la combinaison
-                switch (chercheCombinaison(MonJeu))
+                switch (chercheCombinaison(ref MonJeu))
                 {
                     case combinaison.RIEN:
                         Console.WriteLine("rien du tout... desole!"); break;
